@@ -71,7 +71,7 @@ if (adminLoginForm) {
                 name: 'Admin User',
                 role: 'admin'
             }));
-            alert('Admin login successful! Redirecting to admin panel...');
+            alert('✅ Admin login successful! Redirecting to admin panel...');
             window.location.href = 'admin-dashboard.html';
         }, 1500);
     });
