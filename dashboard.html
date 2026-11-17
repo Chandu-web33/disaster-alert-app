@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Disaster Alert System</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="dashboard-body">
+    <!-- User Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Disaster<span class="highlight">Alert</span></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#overview" class="nav-link active">Overview</a></li>
+                <li><a href="#my-alerts" class="nav-link">My Alerts</a></li>
+                <li><a href="#map" class="nav-link">Map</a></li>
+                <li><a href="#settings" class="nav-link">Settings</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-profile" onclick="toggleProfileMenu()">
+                    <img src="https://ui-avatars.com/api/?name=User&background=0066ff&color=fff" alt="User">
+                    <span id="userName">User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#profile"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#preferences"><i class="fas fa-bell"></i> Alert Preferences</a>
+                    <hr>
+                    <a href="index.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h1>Welcome back, <span id="userGreeting">User</span>! 👋</h1>
+                    <p>Stay informed about disasters in your area and around the world</p>
+                </div>
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h3>3</h3>
+                            <p>Active Alerts in Your Area</p>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <i class="fas fa-bell"></i>
+                        <div>
+                            <h3>12</h3>
+                            <p>Notifications Received</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alert Cards -->
+            <section class="alerts-grid">
+                <h2 class="section-heading">
+                    <i class="fas fa-exclamation-circle"></i> Alerts for Your Location
+                </h2>
+                <div class="user-alerts-list" id="userAlertsList">
+                    <!-- Alerts will be populated here -->
+                </div>
+            </section>
+
+            <!-- Map Section -->
+            <section class="map-section">
+                <h2 class="section-heading">
+                    <i class="fas fa-map-marked-alt"></i> Nearby Disasters
+                </h2>
+                <div class="map-container">
+                    <div id="user-map"></div>
+                </div>
+            </section>
+
+            <!-- Subscription Info -->
+            <section class="subscription-section">
+                <div class="subscription-card">
+                    <div class="sub-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="sub-content">
+                        <h3>Your Alert Preferences</h3>
+                        <p>You're subscribed to receive alerts about: Earthquakes, Floods, Hurricanes, Wildfires, Severe Weather</p>
+                        <div class="sub-actions">
+                            <button class="btn btn-primary" onclick="editPreferences()">
+                                <i class="fas fa-edit"></i> Edit Preferences
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewHistory()">
+                                <i class="fas fa-history"></i> View History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Safety Tips -->
+            <section class="tips-section">
+                <h2 class="section-heading">
+                    <i class="fas fa-lightbulb"></i> Safety Tips
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-first-aid"></i>
+                        <h4>Emergency Kit</h4>
+                        <p>Always keep an emergency kit with water, food, and first aid supplies</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-route"></i>
+                        <h4>Evacuation Plan</h4>
+                        <p>Know your evacuation routes and have a family meeting point</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-phone"></i>
+                        <h4>Emergency Contacts</h4>
+                        <p>Keep important phone numbers saved and accessible offline</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-home"></i>
+                        <h4>Safe Shelter</h4>
+                        <p>Identify the safest room in your home for different disasters</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <p>&copy; 2024 Disaster Alert System. Stay safe, stay informed.</p>
+            <div class="footer-links">
+                <a href="#help">Help Center</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
