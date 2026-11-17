@@ -1145,6 +1145,12 @@ section {
     gap: 10px;
 }
 
+.popup-country {
+    color: var(--text-gray);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
 .popup-magnitude {
     margin-bottom: 8px;
     color: var(--text-gray);

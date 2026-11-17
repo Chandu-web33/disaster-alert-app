@@ -31,67 +31,107 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Sample disaster alerts data
+// Sample disaster alerts data - Global Coverage
 const disasterAlerts = [
     {
         id: 1,
         type: 'Earthquake',
         icon: 'fa-house-damage',
         level: 'critical',
-        location: 'San Francisco, CA',
-        description: 'Magnitude 6.2 earthquake detected. Aftershocks expected. Seek shelter immediately.',
-        time: '2 minutes ago',
-        affected: '500K'
+        location: 'Istanbul, Turkey',
+        description: 'Magnitude 6.5 earthquake on North Anatolian Fault. Immediate emergency response activated.',
+        time: '10 minutes ago',
+        affected: '2M'
     },
     {
         id: 2,
         type: 'Flood Warning',
         icon: 'fa-water',
-        level: 'warning',
-        location: 'Houston, TX',
-        description: 'Heavy rainfall causing flash flooding in low-lying areas. Avoid travel.',
-        time: '15 minutes ago',
-        affected: '250K'
+        level: 'critical',
+        location: 'Kolkata, India',
+        description: 'Monsoon flooding causing widespread damage. Multiple areas submerged.',
+        time: '2 hours ago',
+        affected: '2.5M'
     },
     {
         id: 3,
         type: 'Wildfire',
         icon: 'fa-fire-alt',
         level: 'critical',
-        location: 'Los Angeles, CA',
-        description: 'Fast-moving wildfire spreading rapidly. Mandatory evacuation order in effect.',
-        time: '30 minutes ago',
-        affected: '100K'
+        location: 'Sydney, Australia',
+        description: 'Bushfires burning out of control. Total fire ban in effect. Evacuations ongoing.',
+        time: '2 hours ago',
+        affected: '500K'
     },
     {
         id: 4,
-        type: 'Hurricane Watch',
+        type: 'Super Typhoon',
         icon: 'fa-wind',
-        level: 'watch',
-        location: 'Miami, FL',
-        description: 'Category 3 hurricane approaching. Monitor updates and prepare evacuation plans.',
-        time: '1 hour ago',
-        affected: '1.2M'
+        level: 'critical',
+        location: 'Manila, Philippines',
+        description: 'Category 4 Super Typhoon approaching. Mandatory evacuations in coastal areas.',
+        time: '30 minutes ago',
+        affected: '3M'
     },
     {
         id: 5,
-        type: 'Severe Storm',
-        icon: 'fa-bolt',
-        level: 'warning',
-        location: 'Chicago, IL',
-        description: 'Severe thunderstorms with hail and damaging winds. Seek indoor shelter.',
-        time: '45 minutes ago',
-        affected: '300K'
+        type: 'Severe Flooding',
+        icon: 'fa-water',
+        level: 'critical',
+        location: 'Lagos, Nigeria',
+        description: 'Coastal flooding affecting multiple neighborhoods. Emergency evacuations in progress.',
+        time: '1 hour ago',
+        affected: '700K'
     },
     {
         id: 6,
-        type: 'Tornado Warning',
+        type: 'Tropical Cyclone',
         icon: 'fa-tornado',
         level: 'critical',
-        location: 'Oklahoma City, OK',
-        description: 'Tornado spotted on ground. Take shelter in basement or interior room immediately.',
-        time: '5 minutes ago',
-        affected: '150K'
+        location: 'Suva, Fiji',
+        description: 'Category 3 Cyclone making landfall. Storm surge and heavy rain expected.',
+        time: '40 minutes ago',
+        affected: '200K'
+    },
+    {
+        id: 7,
+        type: 'Earthquake',
+        icon: 'fa-house-damage',
+        level: 'warning',
+        location: 'Tokyo, Japan',
+        description: 'Magnitude 6.0 earthquake detected. Tsunami warning cancelled. Aftershocks possible.',
+        time: '25 minutes ago',
+        affected: '5M'
+    },
+    {
+        id: 8,
+        type: 'Wildfire',
+        icon: 'fa-fire-alt',
+        level: 'critical',
+        location: 'Madrid, Spain',
+        description: 'Multiple wildfires burning due to extreme heatwave. Evacuation orders issued.',
+        time: '4 hours ago',
+        affected: '50K'
+    },
+    {
+        id: 9,
+        type: 'Severe Storm',
+        icon: 'fa-bolt',
+        level: 'warning',
+        location: 'London, UK',
+        description: 'Severe windstorm approaching. Wind speeds up to 100 km/h expected.',
+        time: '1 hour ago',
+        affected: '3M'
+    },
+    {
+        id: 10,
+        type: 'Amazon Flooding',
+        icon: 'fa-water',
+        level: 'critical',
+        location: 'Manaus, Brazil',
+        description: 'Amazon River reaching historic flood levels. Multiple communities at risk.',
+        time: '3 hours ago',
+        affected: '600K'
     }
 ];
 
@@ -102,17 +142,22 @@ function updateStats() {
     
     let totalAffected = 0;
     disasterAlerts.forEach(alert => {
-        const affected = parseFloat(alert.affected);
-        totalAffected += affected;
+        const numStr = alert.affected.replace('K', '').replace('M', '');
+        const num = parseFloat(numStr);
+        if (alert.affected.includes('M')) {
+            totalAffected += num;
+        } else if (alert.affected.includes('K')) {
+            totalAffected += num / 1000;
+        }
     });
     
-    const affectedRegions = new Set(disasterAlerts.map(alert => alert.location)).size;
+    const affectedRegions = new Set(disasterAlerts.map(alert => alert.location.split(',')[0])).size;
 
     document.getElementById('active-alerts-count').textContent = totalAlerts;
     document.getElementById('total-alerts').textContent = totalAlerts;
     document.getElementById('critical-alerts').textContent = criticalAlerts;
     document.getElementById('affected-people').textContent = totalAffected.toFixed(1) + 'M';
-    document.getElementById('affected-regions').textContent = affectedRegions;
+    document.getElementById('affected-regions').textContent = affectedRegions + '+';
 }
 
 // Render alerts
