@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  disaster-alert-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: disaster-alert-app
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    networks:
+      - disaster-alert-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.disaster-alert.description=Disaster Alert Web Application"
+      - "com.disaster-alert.version=1.0"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  disaster-alert-network:
+    driver: bridge
+
+# Future services can be added here:
+# - disaster-alert-api (Backend API)
+# - disaster-alert-db (Database)
+# - disaster-alert-redis (Caching)
+# - disaster-alert-monitor (Monitoring)

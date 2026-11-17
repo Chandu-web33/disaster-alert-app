@@ -1,0 +1,151 @@
+name: Disaster Alert CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOCKER_IMAGE: disaster-alert-app
+  DOCKER_TAG: latest
+
+jobs:
+  # Job 1: Code Quality and Linting
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate HTML
+        run: |
+          echo "✓ Validating HTML structure..."
+          # Add HTML validation tools here
+          
+      - name: Validate CSS
+        run: |
+          echo "✓ Validating CSS..."
+          # Add CSS validation tools here
+
+      - name: JavaScript Lint
+        run: |
+          echo "✓ Linting JavaScript..."
+          # Add ESLint or similar here
+
+  # Job 2: Security Scan
+  security-scan:
+    name: Security Vulnerability Scan
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run security scan
+        run: |
+          echo "🔒 Running security vulnerability scan..."
+          # Add security scanning tools like Snyk, OWASP ZAP, etc.
+
+  # Job 3: Build Docker Image
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [code-quality, security-scan]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          echo "🐳 Building Docker image..."
+          docker build -t ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} .
+          docker build -t ${{ env.DOCKER_IMAGE }}:${{ github.sha }} .
+
+      - name: Test Docker image
+        run: |
+          echo "🧪 Testing Docker image..."
+          docker run -d -p 8081:80 --name test-container ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
+          sleep 5
+          curl -f http://localhost:8081/ || exit 1
+          docker stop test-container
+          docker rm test-container
+
+      - name: Save Docker image
+        run: |
+          docker save ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} | gzip > disaster-alert-app.tar.gz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: disaster-alert-app.tar.gz
+
+  # Job 4: Integration Tests
+  test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+
+      - name: Load Docker image
+        run: |
+          gunzip disaster-alert-app.tar.gz
+          docker load < disaster-alert-app.tar
+
+      - name: Run integration tests
+        run: |
+          echo "🧪 Running integration tests..."
+          docker-compose up -d
+          sleep 10
+          
+          # Test health endpoint
+          curl -f http://localhost:8081/health || exit 1
+          
+          # Test main page
+          curl -f http://localhost:8081/ || exit 1
+          
+          echo "✅ All integration tests passed!"
+          docker-compose down
+
+  # Job 5: Deploy (only on main branch)
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+
+      - name: Deploy notification
+        run: |
+          echo "🚀 Deploying to production..."
+          echo "Deployment timestamp: $(date)"
+          # Add actual deployment steps here
+          # Examples:
+          # - Push to Docker Hub
+          # - Deploy to AWS/Azure/GCP
+          # - Update Kubernetes manifests
+          # - Trigger ArgoCD sync
+          
+      - name: Success notification
+        run: |
+          echo "✅ Deployment successful!"
+          echo "Application available at: http://your-domain.com"

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time Disaster Alert System - Stay informed about natural disasters and emergency situations">
+    <title>Disaster Alert System | Real-time Emergency Notifications</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Disaster<span class="highlight">Alert</span></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#alerts" class="nav-link">Active Alerts</a></li>
+                <li><a href="#map" class="nav-link">Alert Map</a></li>
+                <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="alert-badge">
+                    <i class="fas fa-bell"></i>
+                    <span id="active-alerts-count">0</span> Active Alerts
+                </div>
+                <h1 class="hero-title">Stay Safe with Real-Time Disaster Alerts</h1>
+                <p class="hero-description">
+                    Get instant notifications about earthquakes, floods, storms, wildfires, 
+                    and other natural disasters in your area. Stay informed, stay safe.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#alerts" class="btn btn-primary">
+                        <i class="fas fa-bell"></i> View Active Alerts
+                    </a>
+                    <a href="#subscribe" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> Subscribe to Alerts
+                    </a>
+                </div>
+                <div class="emergency-banner">
+                    <i class="fas fa-phone"></i>
+                    <strong>Emergency:</strong> Call 911 | Disaster Hotline: 1-800-HELP-NOW
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert Status Dashboard -->
+    <section class="alert-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div class="stat-info">
+                        <h3 id="total-alerts">0</h3>
+                        <p>Total Alerts Today</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-fire"></i>
+                    <div class="stat-info">
+                        <h3 id="critical-alerts">0</h3>
+                        <p>Critical Alerts</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-info">
+                        <h3 id="affected-people">0</h3>
+                        <p>People Notified</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <div class="stat-info">
+                        <h3 id="affected-regions">0</h3>
+                        <p>Affected Regions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Alerts Section -->
+    <section id="alerts" class="alerts-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-broadcast-tower"></i> Active Disaster Alerts
+            </h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Alerts</button>
+                <button class="filter-btn" data-filter="critical">Critical</button>
+                <button class="filter-btn" data-filter="warning">Warning</button>
+                <button class="filter-btn" data-filter="watch">Watch</button>
+            </div>
+            <div id="alerts-container" class="alerts-grid">
+                <!-- Alerts will be dynamically loaded here -->
+                <div class="no-alerts" id="no-alerts-message">
+                    <i class="fas fa-check-circle"></i>
+                    <p>No active alerts at this time. All systems normal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert Map Section -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-globe"></i> Disaster Alert Map
+            </h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Interactive map showing real-time disaster locations</p>
+                    <small>Integration with mapping service (Google Maps / OpenStreetMap)</small>
+                </div>
+            </div>
+            <div class="map-legend">
+                <h4>Alert Levels:</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color critical"></span> Critical - Immediate Action Required
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color warning"></span> Warning - Prepare for Action
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color watch"></span> Watch - Monitor Situation
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disaster Types Section -->
+    <section class="disaster-types">
+        <div class="container">
+            <h2 class="section-title">Monitored Disaster Types</h2>
+            <div class="types-grid">
+                <div class="type-card">
+                    <i class="fas fa-house-damage"></i>
+                    <h3>Earthquakes</h3>
+                    <p>Seismic activity monitoring and alerts</p>
+                </div>
+                <div class="type-card">
+                    <i class="fas fa-water"></i>
+                    <h3>Floods</h3>
+                    <p>River levels and flash flood warnings</p>
+                </div>
+                <div class="type-card">
+                    <i class="fas fa-wind"></i>
+                    <h3>Hurricanes</h3>
+                    <p>Tropical storm tracking and updates</p>
+                </div>
+                <div class="type-card">
+                    <i class="fas fa-fire-alt"></i>
+                    <h3>Wildfires</h3>
+                    <p>Forest fire detection and spread alerts</p>
+                </div>
+                <div class="type-card">
+                    <i class="fas fa-mountain"></i>
+                    <h3>Landslides</h3>
+                    <p>Slope stability monitoring</p>
+                </div>
+                <div class="type-card">
+                    <i class="fas fa-snowflake"></i>
+                    <h3>Severe Weather</h3>
+                    <p>Storms, tornadoes, and blizzards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section id="subscribe" class="subscribe-section">
+        <div class="container">
+            <h2 class="section-title">Subscribe to Alerts</h2>
+            <p class="section-description">Get instant notifications via SMS, email, or push notifications</p>
+            <div class="subscribe-container">
+                <form class="subscribe-form" id="subscribeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="sub-name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="sub-email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="sub-phone" placeholder="+1 (555) 123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Location/Zip Code</label>
+                            <input type="text" id="sub-location" placeholder="Enter zip code" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Alert Preferences</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="earthquake" checked> Earthquakes
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="flood" checked> Floods
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="hurricane" checked> Hurricanes
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="wildfire" checked> Wildfires
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="severe-weather" checked> Severe Weather
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notification Method</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="notification" value="all" checked> All (SMS + Email + Push)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="notification" value="sms"> SMS Only
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="notification" value="email"> Email Only
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-bell"></i> Subscribe to Alerts
+                    </button>
+                </form>
+                <div class="subscribe-info">
+                    <div class="info-box">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Your Safety First</h4>
+                        <p>We never share your information. Unsubscribe anytime.</p>
+                    </div>
+                    <div class="info-box">
+                        <i class="fas fa-clock"></i>
+                        <h4>Real-Time Alerts</h4>
+                        <p>Receive notifications within seconds of disaster detection.</p>
+                    </div>
+                    <div class="info-box">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Multi-Platform</h4>
+                        <p>Get alerts on any device - phone, tablet, or computer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About/Info Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Disaster Alert System</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Protecting Lives Through Technology</h3>
+                    <p>
+                        Our Disaster Alert System uses advanced monitoring technology and real-time 
+                        data from multiple sources to provide instant notifications about natural 
+                        disasters and emergency situations.
+                    </p>
+                    <p>
+                        Built with DevOps best practices, our system ensures 99.9% uptime, 
+                        scalable architecture, and rapid alert delivery to keep communities safe.
+                    </p>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Real-time monitoring from multiple data sources</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>AI-powered disaster prediction and analysis</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instant multi-channel notifications (SMS, Email, Push)</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Location-based personalized alerts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Integration with government emergency services</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>Technology Stack</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge"><i class="fab fa-docker"></i> Docker</span>
+                        <span class="tech-badge"><i class="fab fa-git-alt"></i> Git/GitHub</span>
+                        <span class="tech-badge"><i class="fas fa-code"></i> HTML5/CSS3/JS</span>
+                        <span class="tech-badge"><i class="fab fa-node-js"></i> Node.js</span>
+                        <span class="tech-badge"><i class="fas fa-database"></i> MongoDB</span>
+                        <span class="tech-badge"><i class="fab fa-aws"></i> AWS Cloud</span>
+                        <span class="tech-badge"><i class="fas fa-robot"></i> CI/CD Pipeline</span>
+                        <span class="tech-badge"><i class="fas fa-chart-line"></i> Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Disaster Alert</h4>
+                    <p>Keeping communities safe through technology</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#alerts">Active Alerts</a></li>
+                        <li><a href="#map">Alert Map</a></li>
+                        <li><a href="#subscribe">Subscribe</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Contacts</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> Emergency: 911</li>
+                        <li><i class="fas fa-phone-alt"></i> Disaster Hotline: 1-800-HELP-NOW</li>
+                        <li><i class="fas fa-envelope"></i> alerts@disasteralert.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Disaster Alert System. Built with DevOps Best Practices.</p>
+                <p class="tech-credit">Dockerized | CI/CD Enabled | Cloud-Native Architecture</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

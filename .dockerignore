@@ -1,0 +1,37 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+DESIGN.md
+*.md
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Node modules (if used later)
+node_modules/
+npm-debug.log*
+
+# Docker files
+docker-compose*.yml
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+Jenkinsfile
