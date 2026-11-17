@@ -569,7 +569,6 @@ section {
 
 .form-group {
     margin-bottom: 20px;
-    position: relative;
 }
 
 .form-group label {
@@ -577,8 +576,6 @@ section {
     margin-bottom: 8px;
     color: var(--text-light);
     font-weight: 600;
-    position: relative;
-    z-index: 0;
 }
 
 .form-group label i {
@@ -881,5 +878,1002 @@ section {
 
     .section-title {
         font-size: 2rem;
+    }
+}
+
+/* ===== Enhanced Navigation ===== */
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-nav {
+    padding: 8px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.btn-login {
+    color: var(--text-light);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background: var(--primary-color);
+}
+
+.btn-register {
+    background: var(--gradient);
+    color: var(--text-light);
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+/* ===== Enhanced Map Section ===== */
+#disaster-map {
+    height: 600px;
+    width: 100%;
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.map-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.control-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.map-btn {
+    padding: 10px 20px;
+    border: 2px solid var(--card-bg);
+    background: var(--card-bg);
+    color: var(--text-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.map-btn:hover, .map-btn.active {
+    background: var(--gradient);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.map-info {
+    background: var(--card-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.map-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--text-gray);
+    z-index: 1000;
+}
+
+.map-loader i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.map-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.map-stats .stat-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.map-stats .stat-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.map-stats .stat-card h4 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.map-stats .stat-card p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* Custom Map Markers */
+.custom-marker {
+    position: relative;
+}
+
+.marker-pin {
+    width: 40px;
+    height: 40px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: bounce-marker 2s infinite;
+}
+
+.marker-pin i {
+    transform: rotate(45deg);
+    color: white;
+    font-size: 1.2rem;
+}
+
+.marker-pulse {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation: pulse-marker 2s infinite;
+    opacity: 0.6;
+}
+
+.marker-pulse.critical {
+    background: #b91c1c;
+}
+
+.marker-pulse.warning {
+    background: #f59e0b;
+}
+
+.marker-pulse.watch {
+    background: #3b82f6;
+}
+
+@keyframes bounce-marker {
+    0%, 100% { transform: rotate(-45deg) translateY(0); }
+    50% { transform: rotate(-45deg) translateY(-10px); }
+}
+
+@keyframes pulse-marker {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Map Popup Styling */
+.leaflet-popup-content-wrapper {
+    background: var(--card-bg);
+    color: var(--text-light);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.leaflet-popup-tip {
+    background: var(--card-bg);
+}
+
+.map-popup {
+    padding: 20px;
+    min-width: 280px;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.popup-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.popup-badge.critical {
+    background: var(--critical-color);
+}
+
+.popup-badge.warning {
+    background: var(--warning-color);
+}
+
+.popup-badge.watch {
+    background: var(--watch-color);
+}
+
+.popup-time {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.map-popup h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.popup-magnitude {
+    margin-bottom: 8px;
+    color: var(--text-gray);
+}
+
+.popup-description {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.popup-stats {
+    padding-top: 10px;
+    border-top: 1px solid var(--light-bg);
+    margin-bottom: 15px;
+    color: var(--text-gray);
+}
+
+.popup-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.popup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+}
+
+/* Map Legend Enhancement */
+.map-legend {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.map-legend h4 {
+    margin-bottom: 20px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: start;
+    gap: 15px;
+}
+
+.legend-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.legend-marker.critical {
+    background: var(--critical-color);
+}
+
+.legend-marker.warning {
+    background: var(--warning-color);
+}
+
+.legend-marker.watch {
+    background: var(--watch-color);
+}
+
+.legend-text strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-light);
+}
+
+.legend-text p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ===== Login & Register Pages ===== */
+.login-page, .register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+    padding: 20px;
+}
+
+.login-container, .register-container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.login-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* Login Branding Side */
+.login-branding {
+    background: var(--gradient);
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-content {
+    text-align: center;
+}
+
+.brand-logo {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+.brand-logo i {
+    font-size: 3rem;
+    color: white;
+}
+
+.brand-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.brand-content > p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+}
+
+.brand-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.brand-stats .stat-item {
+    text-align: center;
+}
+
+.brand-stats h3 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.brand-stats p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Login Forms Side */
+.login-forms {
+    padding: 60px 50px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: var(--primary-color);
+}
+
+/* Login Tabs */
+.login-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--light-bg);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-gray);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form Styling */
+.form-title {
+    margin-bottom: 30px;
+}
+
+.form-title h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.form-title p {
+    color: var(--text-gray);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    background: var(--light-bg);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: var(--dark-bg);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-gray);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-gray);
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-bg);
+}
+
+.form-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Social Login */
+.social-login {
+    margin-top: 30px;
+}
+
+.social-login p {
+    text-align: center;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+}
+
+.social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.social-btn {
+    padding: 12px;
+    border: 2px solid var(--light-bg);
+    background: transparent;
+    color: var(--text-light);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-btn:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.admin-notice {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: start;
+}
+
+.admin-notice i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.admin-notice p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Register Page */
+.register-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.register-header p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+/* Form Progress */
+.form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background: var(--light-bg);
+    z-index: 0;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--light-bg);
+    border: 3px solid var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--text-gray);
+    transition: all 0.3s;
+}
+
+.progress-step.active .step-number {
+    background: var(--gradient);
+    color: white;
+}
+
+.progress-step p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.progress-step.active p {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Form Steps */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.form-step h3 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: var(--text-light);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.input-group input, .input-group select {
+    padding: 12px 15px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+/* Preferences Section */
+.preferences-section {
+    margin-bottom: 30px;
+}
+
+.section-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.checkbox-card {
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox-card input {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkbox-card .card-content {
+    background: var(--light-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.checkbox-card input:checked + .card-content {
+    border-color: var(--primary-color);
+    background: rgba(220, 38, 38, 0.1);
+}
+
+.checkbox-card .card-content i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.checkbox-card .card-content span {
+    display: block;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.radio-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.radio-card {
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-card input {
+    position: absolute;
+    opacity: 0;
+}
+
+.radio-card .card-content {
+    background: var(--light-bg);
+    padding: 25px 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.radio-card input:checked + .card-content {
+    border-color: var(--primary-color);
+    background: rgba(220, 38, 38, 0.1);
+}
+
+.radio-card .card-content i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.radio-card .card-content h4 {
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.radio-card .card-content p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.terms-agreement {
+    margin: 25px 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    color: var(--text-gray);
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin-top: 3px;
+}
+
+.checkbox-label a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--light-bg);
+}
+
+.register-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: white;
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .login-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .login-branding {
+        display: none;
+    }
+
+    .map-stats, .legend-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .checkbox-grid, .radio-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-actions {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-grid, .checkbox-grid, .radio-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .map-stats, .legend-items {
+        grid-template-columns: 1fr;
+    }
+
+    .register-wrapper {
+        padding: 30px 20px;
+    }
+
+    #disaster-map {
+        height: 400px;
     }
 }

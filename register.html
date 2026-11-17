@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Disaster Alert System</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="register-page">
+    <div class="register-container">
+        <div class="register-wrapper">
+            <div class="register-header">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <h1>Create Your Account</h1>
+                <p>Join thousands of users staying safe with real-time alerts</p>
+            </div>
+
+            <form class="register-form" id="registerForm">
+                <div class="form-progress">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <p>Personal Info</p>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <p>Location</p>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <p>Preferences</p>
+                    </div>
+                </div>
+
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" data-step="1">
+                    <h3>Personal Information</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Full Name *</label>
+                            <input type="text" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address *</label>
+                            <input type="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" placeholder="+1 (555) 123-4567" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Date of Birth</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Password *</label>
+                            <input type="password" id="regPassword" placeholder="Create a strong password" required>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Confirm Password *</label>
+                            <input type="password" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Location -->
+                <div class="form-step" data-step="2">
+                    <h3>Location Information</h3>
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label>Street Address *</label>
+                            <input type="text" placeholder="123 Main Street" required>
+                        </div>
+                        <div class="input-group">
+                            <label>City *</label>
+                            <input type="text" placeholder="City" required>
+                        </div>
+                        <div class="input-group">
+                            <label>State/Province *</label>
+                            <input type="text" placeholder="State" required>
+                        </div>
+                        <div class="input-group">
+                            <label>ZIP/Postal Code *</label>
+                            <input type="text" placeholder="12345" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Country *</label>
+                            <select required>
+                                <option value="">Select Country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="au">Australia</option>
+                                <option value="in">India</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Alert Preferences -->
+                <div class="form-step" data-step="3">
+                    <h3>Alert Preferences</h3>
+                    <div class="preferences-section">
+                        <label class="section-label">Select Disaster Types</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-house-damage"></i>
+                                    <span>Earthquakes</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-water"></i>
+                                    <span>Floods</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Hurricanes</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-fire-alt"></i>
+                                    <span>Wildfires</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Storms</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-card">
+                                <input type="checkbox" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-mountain"></i>
+                                    <span>Landslides</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="preferences-section">
+                        <label class="section-label">Notification Methods</label>
+                        <div class="radio-cards">
+                            <label class="radio-card">
+                                <input type="radio" name="notification" value="all" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-bell"></i>
+                                    <h4>All Notifications</h4>
+                                    <p>SMS + Email + Push</p>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="notification" value="sms">
+                                <div class="card-content">
+                                    <i class="fas fa-sms"></i>
+                                    <h4>SMS Only</h4>
+                                    <p>Text messages</p>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="notification" value="email">
+                                <div class="card-content">
+                                    <i class="fas fa-envelope"></i>
+                                    <h4>Email Only</h4>
+                                    <p>Email alerts</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="terms-agreement">
+                        <label class="checkbox-label">
+                            <input type="checkbox" required>
+                            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="register-footer">
+                <p>Already have an account? <a href="login.html">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>

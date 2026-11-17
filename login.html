@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Disaster Alert System</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-wrapper">
+            <!-- Left Side - Branding -->
+            <div class="login-branding">
+                <div class="brand-content">
+                    <div class="brand-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h1>Disaster Alert System</h1>
+                    <p>Real-time emergency monitoring and notification platform</p>
+                    <div class="brand-stats">
+                        <div class="stat-item">
+                            <h3>10M+</h3>
+                            <p>Users Protected</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>99.9%</h3>
+                            <p>Uptime</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>24/7</h3>
+                            <p>Monitoring</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Forms -->
+            <div class="login-forms">
+                <div class="form-header">
+                    <a href="index.html" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+
+                <!-- Tab Switcher -->
+                <div class="login-tabs">
+                    <button class="tab-btn active" data-tab="user-login">
+                        <i class="fas fa-user"></i> User Login
+                    </button>
+                    <button class="tab-btn" data-tab="admin-login">
+                        <i class="fas fa-user-shield"></i> Admin Login
+                    </button>
+                </div>
+
+                <!-- User Login Form -->
+                <div class="tab-content active" id="user-login">
+                    <div class="form-container">
+                        <div class="form-title">
+                            <h2>Welcome Back!</h2>
+                            <p>Sign in to your account to receive personalized alerts</p>
+                        </div>
+                        <form class="login-form" id="userLoginForm">
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <input type="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <input type="password" id="userPassword" placeholder="Password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('userPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-options">
+                                <label class="remember-me">
+                                    <input type="checkbox">
+                                    <span>Remember me</span>
+                                </label>
+                                <a href="#" class="forgot-password">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </form>
+                        <div class="form-footer">
+                            <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+                        </div>
+                        <div class="social-login">
+                            <p>Or continue with</p>
+                            <div class="social-buttons">
+                                <button class="social-btn google">
+                                    <i class="fab fa-google"></i> Google
+                                </button>
+                                <button class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Login Form -->
+                <div class="tab-content" id="admin-login">
+                    <div class="form-container">
+                        <div class="form-title">
+                            <h2>Admin Access</h2>
+                            <p>Authorized personnel only</p>
+                        </div>
+                        <form class="login-form" id="adminLoginForm">
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <input type="text" placeholder="Admin Username" required>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <input type="password" id="adminPassword" placeholder="Admin Password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('adminPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <input type="text" placeholder="2FA Code" required>
+                            </div>
+                            <div class="form-options">
+                                <label class="remember-me">
+                                    <input type="checkbox">
+                                    <span>Remember this device</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-shield-alt"></i> Admin Sign In
+                            </button>
+                        </form>
+                        <div class="admin-notice">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>All admin access attempts are logged and monitored for security purposes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>

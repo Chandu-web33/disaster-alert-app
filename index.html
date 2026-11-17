@@ -7,6 +7,7 @@
     <title>Disaster Alert System | Real-time Emergency Notifications</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <!-- Navigation -->
@@ -17,12 +18,20 @@
                 <h2>Disaster<span class="highlight">Alert</span></h2>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#alerts" class="nav-link">Active Alerts</a></li>
                 <li><a href="#map" class="nav-link">Alert Map</a></li>
                 <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
             </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-nav btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="register.html" class="btn-nav btn-register">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+            </div>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -122,26 +131,101 @@
     <section id="map" class="map-section">
         <div class="container">
             <h2 class="section-title">
-                <i class="fas fa-globe"></i> Disaster Alert Map
+                <i class="fas fa-globe"></i> Global Disaster Alert Map
             </h2>
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <p>Interactive map showing real-time disaster locations</p>
-                    <small>Integration with mapping service (Google Maps / OpenStreetMap)</small>
+            <p class="section-description">Real-time visualization of disaster events worldwide</p>
+            
+            <div class="map-controls">
+                <div class="control-group">
+                    <button class="map-btn active" data-filter="all">
+                        <i class="fas fa-globe"></i> All Disasters
+                    </button>
+                    <button class="map-btn" data-filter="earthquake">
+                        <i class="fas fa-house-damage"></i> Earthquakes
+                    </button>
+                    <button class="map-btn" data-filter="flood">
+                        <i class="fas fa-water"></i> Floods
+                    </button>
+                    <button class="map-btn" data-filter="fire">
+                        <i class="fas fa-fire-alt"></i> Wildfires
+                    </button>
+                    <button class="map-btn" data-filter="storm">
+                        <i class="fas fa-wind"></i> Storms
+                    </button>
+                </div>
+                <div class="map-info">
+                    <span id="active-markers">6 Active Events</span>
                 </div>
             </div>
+
+            <div class="map-container">
+                <div id="disaster-map"></div>
+                <div class="map-loader" id="mapLoader">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading map...</p>
+                </div>
+            </div>
+
             <div class="map-legend">
-                <h4>Alert Levels:</h4>
+                <h4><i class="fas fa-info-circle"></i> Alert Severity Levels:</h4>
                 <div class="legend-items">
                     <div class="legend-item">
-                        <span class="legend-color critical"></span> Critical - Immediate Action Required
+                        <span class="legend-marker critical">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                        <div class="legend-text">
+                            <strong>Critical</strong>
+                            <p>Immediate action required - Life-threatening</p>
+                        </div>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-color warning"></span> Warning - Prepare for Action
+                        <span class="legend-marker warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                        <div class="legend-text">
+                            <strong>Warning</strong>
+                            <p>Prepare for action - Potential danger</p>
+                        </div>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-color watch"></span> Watch - Monitor Situation
+                        <span class="legend-marker watch">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="legend-text">
+                            <strong>Watch</strong>
+                            <p>Monitor situation - Conditions developing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-stats">
+                <div class="stat-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4 id="map-total-events">6</h4>
+                        <p>Active Events</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <div>
+                        <h4 id="map-countries">4</h4>
+                        <p>Countries Affected</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4 id="map-population">2.5M</h4>
+                        <p>People in Alert Zone</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4 id="map-updated">Just Now</h4>
+                        <p>Last Updated</p>
                     </div>
                 </div>
             </div>
@@ -368,6 +452,8 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="assets/js/map.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
