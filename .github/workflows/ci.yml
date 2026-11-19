@@ -1,0 +1,135 @@
+name: CI - Build and Test
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  # Backend Testing
+  backend-test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./backend
+      run: npm ci
+    
+    - name: Run linter (if exists)
+      working-directory: ./backend
+      run: npm run lint --if-present
+      continue-on-error: true
+    
+    - name: Run tests (if exists)
+      working-directory: ./backend
+      run: npm test --if-present
+      continue-on-error: true
+    
+    - name: Check for security vulnerabilities
+      working-directory: ./backend
+      run: npm audit --audit-level=high
+      continue-on-error: true
+
+  # Frontend Validation
+  frontend-validation:
+    name: Frontend Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Validate HTML files
+      uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      with:
+        root: .
+        css: true
+        continue-on-error: true
+    
+    - name: Check JavaScript syntax
+      run: |
+        echo "Checking JavaScript files..."
+        find assets/js -name "*.js" -exec node -c {} \;
+      continue-on-error: true
+
+  # Docker Build Test
+  docker-build:
+    name: Docker Build Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Build Frontend Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
+        tags: disaster-alert-frontend:test
+    
+    - name: Build Backend Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./backend
+        file: ./backend/Dockerfile
+        push: false
+        tags: disaster-alert-backend:test
+
+  # Code Quality Check
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Run Super-Linter
+      uses: github/super-linter@v5
+      env:
+        DEFAULT_BRANCH: master
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VALIDATE_JAVASCRIPT_ES: true
+        VALIDATE_CSS: true
+        VALIDATE_HTML: true
+        VALIDATE_JSON: true
+        VALIDATE_MARKDOWN: true
+        VALIDATE_DOCKERFILE: true
+        LINTER_RULES_PATH: /
+      continue-on-error: true
+
+  # Build Status Summary
+  build-summary:
+    name: Build Summary
+    runs-on: ubuntu-latest
+    needs: [backend-test, frontend-validation, docker-build]
+    if: always()
+    
+    steps:
+    - name: Check build status
+      run: |
+        echo "✅ CI Pipeline Completed!"
+        echo "Backend Tests: ${{ needs.backend-test.result }}"
+        echo "Frontend Validation: ${{ needs.frontend-validation.result }}"
+        echo "Docker Build: ${{ needs.docker-build.result }}"
