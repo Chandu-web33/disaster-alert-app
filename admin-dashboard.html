@@ -284,19 +284,19 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Disaster Type *</label>
-                        <select required>
+                        <select name="type" required>
                             <option value="">Select Type</option>
-                            <option value="earthquake">Earthquake</option>
-                            <option value="flood">Flood</option>
-                            <option value="fire">Wildfire</option>
-                            <option value="storm">Storm/Hurricane</option>
-                            <option value="tornado">Tornado</option>
-                            <option value="tsunami">Tsunami</option>
+                            <option value="Earthquake">Earthquake</option>
+                            <option value="Flood Warning">Flood</option>
+                            <option value="Wildfire">Wildfire</option>
+                            <option value="Super Typhoon">Storm/Hurricane</option>
+                            <option value="Tornado">Tornado</option>
+                            <option value="Tsunami">Tsunami</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Severity Level *</label>
-                        <select required>
+                        <select name="severity" required>
                             <option value="">Select Severity</option>
                             <option value="watch">Watch</option>
                             <option value="warning">Warning</option>
@@ -307,25 +307,25 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Location *</label>
-                        <input type="text" placeholder="City, Country" required>
+                        <input type="text" name="location" placeholder="City, Country" required>
                     </div>
                     <div class="form-group">
                         <label>Magnitude/Intensity *</label>
-                        <input type="text" placeholder="e.g., 6.5, Category 4" required>
+                        <input type="text" name="magnitude" placeholder="e.g., 6.5, Category 4" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Description *</label>
-                    <textarea rows="4" placeholder="Detailed description of the disaster..." required></textarea>
+                    <textarea name="description" rows="4" placeholder="Detailed description of the disaster..." required></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Affected Population</label>
-                        <input type="text" placeholder="e.g., 500K, 2.5M">
+                        <input type="text" name="affected" placeholder="e.g., 500K, 2.5M">
                     </div>
                     <div class="form-group">
                         <label>Coordinates (Lat, Lon)</label>
-                        <input type="text" placeholder="e.g., 37.7749, -122.4194">
+                        <input type="text" name="coordinates" placeholder="e.g., 37.7749, -122.4194">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -338,6 +338,28 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Check if admin is logged in
+        const user = localStorage.getItem('dasUser');
+        if (!user) {
+            // Not logged in - redirect to login
+            window.location.href = 'login.html';
+        } else {
+            const userData = JSON.parse(user);
+            // Check if user is admin
+            if (userData.role !== 'admin') {
+                alert('Admin access required');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('dasToken');
+            localStorage.removeItem('dasUser');
+            window.location.href = 'login.html';
+        }
+    </script>
     <script src="assets/js/admin.js"></script>
 </body>
 </html>

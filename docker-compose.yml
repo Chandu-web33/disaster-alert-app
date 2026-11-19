@@ -1,13 +1,17 @@
 version: '3.8'
 
 services:
-  disaster-alert-web:
+
+  # ── Frontend (Nginx) ────────────────────────────────────────────────────────
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: disaster-alert-app
+    container_name: disaster-alert-frontend
     ports:
       - "8081:80"
+    depends_on:
+      - backend
     restart: unless-stopped
     environment:
       - TZ=UTC
@@ -18,9 +22,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 20s
     labels:
-      - "com.disaster-alert.description=Disaster Alert Web Application"
+      - "com.disaster-alert.service=frontend"
       - "com.disaster-alert.version=1.0"
     logging:
       driver: "json-file"
@@ -28,12 +32,74 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  # ── Backend (Node.js / Express API) ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: disaster-alert-backend
+    ports:
+      - "5001:5000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/disasteralert
+      - JWT_SECRET=disaster_alert_jwt_secret_change_in_prod
+      - NODE_ENV=production
+      - TZ=UTC
+    networks:
+      - disaster-alert-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "com.disaster-alert.service=backend"
+      - "com.disaster-alert.version=1.0"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ── Database (MongoDB) ───────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: disaster-alert-mongo
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - disaster-alert-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    labels:
+      - "com.disaster-alert.service=database"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ── Volumes ──────────────────────────────────────────────────────────────────
+volumes:
+  mongo-data:
+    driver: local
+
+# ── Networks ──────────────────────────────────────────────────────────────────
 networks:
   disaster-alert-network:
     driver: bridge
-
-# Future services can be added here:
-# - disaster-alert-api (Backend API)
-# - disaster-alert-db (Database)
-# - disaster-alert-redis (Caching)
-# - disaster-alert-monitor (Monitoring)

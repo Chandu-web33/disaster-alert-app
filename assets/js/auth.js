@@ -111,16 +111,70 @@ function prevStep(step) {
 // Registration Form Submit
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
-    registerForm.addEventListener('submit', function(e) {
+    registerForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Simulate registration
+        console.log('📝 Registration form submitted');
+        
+        // Get form values by ID
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        
+        console.log('Form values:', { name, email, password: '***' });
+        
+        if (!name || !email || !password) {
+            alert('⚠️ Please fill in all required fields');
+            return;
+        }
+        
+        // Simple email validation
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('⚠️ Please enter a valid email address');
+            return;
+        }
+        
+        // Password length check
+        if (password.length < 6) {
+            alert('⚠️ Password must be at least 6 characters long');
+            return;
+        }
+        
         showLoading();
-        setTimeout(() => {
+        
+        try {
+            console.log('🔄 Sending registration request to backend...');
+            
+            const response = await fetch('http://localhost:5000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+            
+            console.log('Response status:', response.status);
+            
+            const data = await response.json();
+            console.log('Response data:', data);
+            
             hideLoading();
-            alert('Registration successful! Please check your email to verify your account.');
-            window.location.href = 'login.html';
-        }, 2000);
+            
+            if (data.success) {
+                // Store token and user data
+                localStorage.setItem('dasToken', data.token);
+                localStorage.setItem('dasUser', JSON.stringify(data.user));
+                
+                console.log('✅ Registration successful!');
+                alert('✅ Registration successful! Welcome aboard!\n\nRedirecting to dashboard...');
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            } else {
+                console.error('❌ Registration failed:', data.error);
+                alert('❌ Registration failed: ' + (data.error || 'Please try again'));
+            }
+        } catch (err) {
+            hideLoading();
+            console.error('❌ Connection error:', err);
+            alert('❌ Connection error. Make sure the backend server is running.\n\nError: ' + err.message);
+        }
     });
 }
 

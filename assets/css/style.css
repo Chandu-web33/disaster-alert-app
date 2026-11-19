@@ -6,19 +6,20 @@
 }
 
 :root {
-    --primary-color: #dc2626;
-    --secondary-color: #ea580c;
-    --critical-color: #b91c1c;
+    /* Modern Purple & Teal Theme with Light Blue Background */
+    --primary-color: #7c3aed;
+    --secondary-color: #14b8a6;
+    --critical-color: #dc2626;
     --warning-color: #f59e0b;
-    --watch-color: #3b82f6;
+    --watch-color: #06b6d4;
     --success-color: #10b981;
-    --dark-bg: #0f172a;
-    --light-bg: #1e293b;
-    --card-bg: #334155;
-    --text-light: #ffffff;
-    --text-gray: #cbd5e1;
-    --gradient: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --dark-bg: #f0f4ff;
+    --light-bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-light: #1e293b;
+    --text-gray: #64748b;
+    --gradient: linear-gradient(135deg, #7c3aed 0%, #14b8a6 100%);
+    --shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
 }
 
 body {

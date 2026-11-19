@@ -52,42 +52,48 @@
                 <div class="welcome-content">
                     <h1>Welcome back, <span id="userGreeting">User</span>! 👋</h1>
                     <p>Stay informed about disasters in your area and around the world</p>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+                        <i class="fas fa-user-circle"></i> <span id="userEmail"></span>
+                    </p>
                 </div>
                 <div class="quick-stats">
                     <div class="quick-stat">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-exclamation-triangle"></i>
                         <div>
-                            <h3>3</h3>
-                            <p>Active Alerts in Your Area</p>
+                            <h3 id="criticalCount">0</h3>
+                            <p>Critical Alerts</p>
                         </div>
                     </div>
                     <div class="quick-stat">
                         <i class="fas fa-bell"></i>
                         <div>
-                            <h3>12</h3>
-                            <p>Notifications Received</p>
+                            <h3 id="totalCount">0</h3>
+                            <p>Total Active Alerts</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Alert Cards -->
-            <section class="alerts-grid">
+            <section class="alerts-grid" id="my-alerts">
                 <h2 class="section-heading">
-                    <i class="fas fa-exclamation-circle"></i> Alerts for Your Location
+                    <i class="fas fa-exclamation-circle"></i> Critical Alerts Worldwide
                 </h2>
                 <div class="user-alerts-list" id="userAlertsList">
-                    <!-- Alerts will be populated here -->
+                    <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                        <p style="margin-top: 15px;">Loading alerts...</p>
+                    </div>
                 </div>
             </section>
 
             <!-- Map Section -->
-            <section class="map-section">
+            <section class="map-section" id="map">
                 <h2 class="section-heading">
-                    <i class="fas fa-map-marked-alt"></i> Nearby Disasters
+                    <i class="fas fa-map-marked-alt"></i> Global Disaster Map
                 </h2>
-                <div class="map-container">
-                    <div id="user-map"></div>
+                <div class="map-container" style="height: 500px; border-radius: 12px; overflow: hidden;">
+                    <div id="user-map" style="height: 100%; width: 100%;"></div>
                 </div>
             </section>
 
@@ -156,6 +162,45 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Check if user is logged in
+        const user = localStorage.getItem('dasUser');
+        if (!user) {
+            // Not logged in - redirect to login
+            window.location.href = 'login.html';
+        } else {
+            // Display user info
+            const userData = JSON.parse(user);
+            const nameEl = document.getElementById('userName');
+            const emailEl = document.getElementById('userEmail');
+            
+            if (nameEl) nameEl.textContent = userData.name || userData.email;
+            if (emailEl) emailEl.textContent = userData.email || '';
+        }
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('dasToken');
+                localStorage.removeItem('dasUser');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        function toggleProfileMenu() {
+            const dropdown = document.getElementById('profileDropdown');
+            if (dropdown) dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profile = document.querySelector('.user-profile');
+            if (dropdown && profile && !profile.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+    </script>
     <script src="assets/js/dashboard.js"></script>
 </body>
 </html>

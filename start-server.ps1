@@ -1,5 +1,5 @@
 # Disaster Alert System - Development Server
-$port = 8081
+$port = 8085
 $url = "http://localhost:$port/"
 
 Write-Host "Starting Disaster Alert System..." -ForegroundColor Red
@@ -22,7 +22,7 @@ try {
         $response = $context.Response
         
         $path = $request.Url.LocalPath
-        if ($path -eq "/") { $path = "/index.html" }
+        if ($path -eq "/") { $path = "/login.html" }
         
         $filePath = Join-Path $PSScriptRoot $path.TrimStart('/')
         
